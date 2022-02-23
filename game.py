@@ -11,7 +11,54 @@ def chess():
         for j in range(8):
           self.spotList[i].append(Spot(chr(104-i), j+1))
 
-          if i == 1:
+          if i == 0 or i == 7:
+            color = 'Black' if i == 0 else 'White'
+            if j == 0:
+              #Sets Rooks
+
+              current = self.spotList[i][j]
+              current.setPiece(Rook(color))
+
+            elif j == 1:
+
+              current = self.spotList[i][j]
+              current.setPiece(Knight(color))
+              
+
+            elif j == 2:
+
+              current = self.spotList[i][j]
+              current.setPiece(Bishop(color))
+
+
+            elif j == 3:
+              current = self.spotList[i][j]
+              current.setPiece(Queen(color))
+
+
+            elif j == 4:
+              current = self.spotList[i][j]
+              current.setPiece(King(color))
+
+            elif j == 5:
+              #Sets Rooks
+
+              current = self.spotList[i][j]
+              current.setPiece(Bishop(color))
+
+            elif j == 6:
+              #Sets Rooks
+
+              current = self.spotList[i][j]
+              current.setPiece(Knight(color))
+
+            elif j == 7:
+              #Sets Rooks
+
+              current = self.spotList[i][j]
+              current.setPiece(Rook(color))
+
+          elif i == 1:
             current = self.spotList[i][j]
             current.setPiece(Pawn('Black'))
 
@@ -88,12 +135,36 @@ def chess():
     def __init__(self, color) -> None:
       super().__init__("P", color)
 
+  class Rook(Piece):
+    def __init__(self, color) -> None:
+      super().__init__('R', color)
+
+  class Knight(Piece):
+    def __init__(self, color) -> None:
+      super().__init__('N', color)
+
+  class Bishop(Piece):
+    def __init__(self, color) -> None:
+      super().__init__('B', color)
+
+  class Queen(Piece):
+    def __init__(self, color) -> None:
+      super().__init__('Q', color)
+
+  class King(Piece):
+    def __init__(self, color) -> None:
+      super().__init__('K', color)
+
+
+
   class Player:
     pass
 
   game = Board()
 
 
-  game.getBoardBySymbol()
+  game.getBoardById()
+  game.getBoardByColor()
+
   return game.getBoardBySymbol()
 
