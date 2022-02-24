@@ -66,8 +66,9 @@ def chess():
             current = self.spotList[i][j]
             current.setPiece(Pawn('White'))
 
-    
-    def getBoardById(self):
+
+    def getBoardById(self): 
+      '''Returns an 8x8 Grid showing tite (Spot) ID'''
       for i in range(len(self.spotList)):
 
         for j in range(len(self.spotList[i])):
@@ -95,6 +96,8 @@ def chess():
         print()
 
 
+  # An object for each Spot on Board
+
   class Spot:
 
     def __init__(self, rank, file) -> None:
@@ -117,6 +120,8 @@ def chess():
         return '-'
       return self.piece.getColor()
 
+
+  # Base Class for All Pieces for Chess
 
   class Piece:
     def __init__(self, symbol, color) -> None:
@@ -147,9 +152,9 @@ def chess():
     def __init__(self, color) -> None:
       super().__init__('B', color)
 
-  class Queen(Piece):
+  class Queen(Bishop, Rook):
     def __init__(self, color) -> None:
-      super().__init__('Q', color)
+      Piece.__init__(self, 'Q', color)
 
   class King(Piece):
     def __init__(self, color) -> None:
