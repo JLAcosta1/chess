@@ -4,12 +4,13 @@ def chess():
 
     def __init__(self) -> None:
       self.spotList = []
+      self.moveCounter = 0
 
       for i in range(8):
         self.spotList.append(list())
 
         for j in range(8):
-          self.spotList[i].append(Spot(chr(104-i), j+1))
+          self.spotList[i].append(Spot(8-i, chr(97+j)))
 
           if i == 0 or i == 7:
             color = 'Black' if i == 0 else 'White'
@@ -68,24 +69,29 @@ def chess():
             current.setPiece(Pawn('White'))
 
     def movePiece(self, string):
+      colorForCurrentMove = 'W' if self.moveCounter % 2 == 0 else 'B'
 
       if len(string) == 2:
         # This is a pawn move
+        print(ord(string[0]) - 97)
         file = int(ord(string[0]) - 97 )
-        rank = int(string[1])
+        print(file)
+        rank = 8 - int(string[1])
 
         pawnsInFile = []
 
         for i in range(len(self.spotList)):
           current = self.spotList[i][file]
 
-          print(type(current))
-          print(type(current.getPiece()))
-          print(current.getPiece())
           test = isinstance(current.getPiece(), Pawn)
-          print(test)
-          print(current.getColor())
-          if test and current.getColor() == 'W':
+
+          if test:
+
+            print(f'Current color of piece selected from iteration is {current.getColor()}')
+
+            print(f'Current color that needs to move is {colorForCurrentMove}')
+
+          if test and current.getColor() == colorForCurrentMove:
             print('hellow from if test')
 
             pawnsInFile.append(current)
@@ -93,6 +99,7 @@ def chess():
         print(pawnsInFile)
 
         if len(pawnsInFile) == 1:
+          print(f'working on rank: {rank} and file: {file}')
           old = pawnsInFile[0]
           new = self.spotList[rank][file]
           new.setPiece(old.getPiece())
@@ -107,6 +114,8 @@ def chess():
       elif len(string) == 4:
         # This is a non-pawn move on a piece that has more than one appearance on the board. A way to specifiy which piece
         pass
+
+      self.moveCounter += 1
 
 
     def getBoardById(self): 
@@ -227,6 +236,12 @@ def chess():
   game.getBoardBySymbol()
 
   game.movePiece('e4')
+
+  game.getBoardById()
+  game.getBoardByColor()
+  game.getBoardBySymbol()
+
+  game.movePiece('e5')
 
   game.getBoardById()
   game.getBoardByColor()
