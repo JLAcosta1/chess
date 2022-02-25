@@ -67,6 +67,47 @@ def chess():
             current = self.spotList[i][j]
             current.setPiece(Pawn('White'))
 
+    def movePiece(self, string):
+
+      if len(string) == 2:
+        # This is a pawn move
+        file = int(ord(string[0]) - 97 )
+        rank = int(string[1])
+
+        pawnsInFile = []
+
+        for i in range(len(self.spotList)):
+          current = self.spotList[i][file]
+
+          print(type(current))
+          print(type(current.getPiece()))
+          print(current.getPiece())
+          test = isinstance(current.getPiece(), Pawn)
+          print(test)
+          print(current.getColor())
+          if test and current.getColor() == 'W':
+            print('hellow from if test')
+
+            pawnsInFile.append(current)
+
+        print(pawnsInFile)
+
+        if len(pawnsInFile) == 1:
+          old = pawnsInFile[0]
+          new = self.spotList[rank][file]
+          new.setPiece(old.getPiece())
+          old.setPiece(None)
+    
+
+
+      elif len(string) == 3:
+        # This is a non-pawn move
+        pass
+
+      elif len(string) == 4:
+        # This is a non-pawn move on a piece that has more than one appearance on the board. A way to specifiy which piece
+        pass
+
 
     def getBoardById(self): 
       '''Returns an 8x8 grid showing tite (Spot) ID'''
@@ -127,6 +168,10 @@ def chess():
         return '-'
       return self.piece.getColor()
 
+    def getPiece(self):
+      '''Return Piece attrivute of Piece assigned to Spot'''
+      return self.piece
+
 
   # Base Class for All Pieces for Chess
 
@@ -176,6 +221,12 @@ def chess():
 
   game = Board()
 
+
+  game.getBoardById()
+  game.getBoardByColor()
+  game.getBoardBySymbol()
+
+  game.movePiece('e4')
 
   game.getBoardById()
   game.getBoardByColor()
